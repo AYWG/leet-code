@@ -7,17 +7,12 @@
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
         # Recursive
-        return self.reverseListHelper(head, None)
+        if head is None or head.next is None:
+            return head
         
-    def reverseListHelper(self, head, currReversedList):
-        if head is None:
-            return None
+        partReversed = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
         
-        newHeadOfReversed = ListNode(head.val)
-        newHeadOfReversed.next = currReversedList
-        # Last node        
-        if head.next == None:
-            return newHeadOfReversed
-        
-        return self.reverseListHelper(head.next, newHeadOfReversed)
+        return partReversed
          
